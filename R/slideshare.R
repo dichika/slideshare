@@ -27,18 +27,22 @@ Slideshare$methods(
 })
 
 Slideshare$methods(
-  getSlideshowByURL = function(url=NULL) {
+  getSlideshow = function(url=NULL, id=NULL) {
     require(XML)
     require(digest)
     require(RCurl)
-    if(is.null(url)){
-      stop("id must be required")
+    if(all(is.null(url), is.null(id))){
+      stop("url or id must be required")
     }
     u <- "https://www.slideshare.net/api/2/get_slideshow?"
+    if(!is.null(url)){
+      m <- paste0("slideshow_url=", url)
+    } else {
+      m <- paste0("slideshow_id=", id)      
+    }
     tstamp <- as.numeric(as.POSIXlt(Sys.time()))
     hash <- digest(paste0(sharedsecret, tstamp),algo="sha1", serialize=FALSE)
-    url <- paste0(u, 
-                  "slideshow_url=", url,
+    url <- paste0(u, m,
                   "&api_key=", apikey,
                   "&ts=", tstamp,
                   "&hash=", hash)
