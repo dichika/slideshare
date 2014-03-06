@@ -45,7 +45,8 @@ Slideshare$methods(
     url <- paste0(u, m,
                   "&api_key=", apikey,
                   "&ts=", tstamp,
-                  "&hash=", hash)
+                  "&hash=", hash,
+                  "&detailed=1")
     docxml <- getURL(url)
     docxmlparsed <- xmlInternalTreeParse(docxml)
     r <- xmlRoot(docxmlparsed)
