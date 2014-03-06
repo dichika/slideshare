@@ -50,5 +50,5 @@ Slideshare$methods(
     docxml <- getURL(url)
     docxmlparsed <- xmlInternalTreeParse(docxml)
     r <- xmlRoot(docxmlparsed)
-    res <- data.frame(t(xmlSApply(r, xmlValue)))
+    res <- data.frame(t(xmlSApply(r, xmlValue)), stringsAsFactors=FALSE)
   })
