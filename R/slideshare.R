@@ -1,7 +1,8 @@
 Slideshare <- setRefClass(Class="Slideshare",
                   fields = list(apikey="character", 
                                 sharedsecret="character")
-                    }))
+                  )
+
 Slideshare$methods(
   getSlideshowById = function(id=NULL) {
   require(XML)
