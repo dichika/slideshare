@@ -1,6 +1,7 @@
 Slideshare <- setRefClass(Class="Slideshare",
                   fields = list(apikey="character", 
-                                sharedsecret="character")
+                                sharedsecret="character"
+                                )
                   )
 
 Slideshare$methods(
@@ -11,6 +12,7 @@ Slideshare$methods(
   if(is.null(id)){
     stop("id must be required")
   }
+  u <- "https://www.slideshare.net/api/2/get_slideshow?"
   tstamp <- as.numeric(as.POSIXlt(Sys.time()))
   hash <- digest(paste0(sharedsecret, tstamp),algo="sha1", serialize=FALSE)
   url <- paste0(u, 
@@ -23,3 +25,25 @@ Slideshare$methods(
   r <- xmlRoot(docxmlparsed)
   res <- data.frame(t(xmlSApply(r, xmlValue)))
 })
+
+Slideshare$methods(
+  getSlideshowByURL = function(url=NULL) {
+    require(XML)
+    require(digest)
+    require(RCurl)
+    if(is.null(url)){
+      stop("id must be required")
+    }
+    u <- "https://www.slideshare.net/api/2/get_slideshow?"
+    tstamp <- as.numeric(as.POSIXlt(Sys.time()))
+    hash <- digest(paste0(sharedsecret, tstamp),algo="sha1", serialize=FALSE)
+    url <- paste0(u, 
+                  "slideshow_url=", url,
+                  "&api_key=", apikey,
+                  "&ts=", tstamp,
+                  "&hash=", hash)
+    docxml <- getURL(url)
+    docxmlparsed <- xmlInternalTreeParse(docxml)
+    r <- xmlRoot(docxmlparsed)
+    res <- data.frame(t(xmlSApply(r, xmlValue)))
+  })
