@@ -19,6 +19,6 @@ secret <- "Your sharedsecret"
 library(slideshare)
 test <- Slideshare$new(apikey=key,sharedsecret=secret)
 res <- test$getSlideshow("http://www.slideshare.net/dichika/r25lt")
-resTag <- test$getSlideshow("tokyor")
-resName <- test$getSlideshow("dichika")
+resTag <- test$getSlideshowByTag("tokyor")
+resUser <- test$getSlideshowByUser("dichika")
 ```
