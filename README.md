@@ -34,4 +34,6 @@ createSlideshowByUser(user="dichika", limit=100, apikey=key, sharedsecret=secret
 browseURL("dichika.html")
 
 ```
+```HTML
 <iframe src='http://dl.dropboxusercontent.com/u/956851/140308.html' width='100%' height='650' frameborder='0'></iframe>
+```
